@@ -2,12 +2,16 @@ import st from "./filterMenu.module.css";
 import PrimaryBtn from "../../../../shared/ui/primaryBtn/primaryBtn";
 import { AD_CATEGORIES } from "../../../../shared/model";
 import closeIcon from "../../../../shared/assets/icons/close.svg";
-const FilterMenu = () => {
+const FilterMenu = ({
+	setIsVisible,
+}: {
+	setIsVisible: React.MouseEventHandler<HTMLButtonElement>;
+}) => {
 	return (
 		<dialog className={st.filterMenu}>
 			<div className={st.menuHeader}>
 				<span className={st.title}>Фильтр</span>
-				<button className={st.closeBtn}>
+				<button onClick={setIsVisible} className={st.closeBtn}>
 					<img className={st.closeIcon} src={closeIcon} alt="Закрыть окно" />
 				</button>
 			</div>
