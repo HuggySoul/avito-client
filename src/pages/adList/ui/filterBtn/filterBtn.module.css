@@ -1,0 +1,17 @@
+.filter {
+	position: relative;
+}
+
+.filterIcon {
+	width: 20px;
+}
+
+.filterTxt {
+	font-size: 15px;
+	font-weight: 600;
+	color: white;
+}
+
+.filterBtn:hover {
+	background-color: var(--primary-hover-col);
+}

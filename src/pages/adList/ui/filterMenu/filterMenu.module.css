@@ -1,0 +1,51 @@
+.filterMenu {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	padding: 15px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 5px 0px var(--box-shadow-col);
+	position: absolute;
+	left: -200px;
+	top: 40px;
+}
+
+.title {
+	font-size: 16px;
+	font-weight: 700;
+}
+.closeIcon {
+	width: 15px;
+}
+
+.closeBtn {
+	display: flex;
+	border: none;
+	background: none;
+	align-items: center;
+}
+
+.filterCond {
+	display: flex;
+	flex-direction: column;
+	border-bottom: 1px solid var(--box-shadow-col);
+	gap: 5px;
+	padding-bottom: 10px;
+}
+
+.labelTxt {
+	color: var(--secondary-text);
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.menuHeader {
+	display: flex;
+	justify-content: space-between;
+}
+
+.submitBtns {
+	display: flex;
+	gap: 20px;
+	justify-content: space-between;
+}

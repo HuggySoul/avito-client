@@ -1,2 +1,16 @@
+.main {
+	padding: 20px;
+}
+.adList {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	align-items: center;
+	margin-top: 20px;
+}
 
-
+.adListHeader {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+}

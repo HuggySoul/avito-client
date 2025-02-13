@@ -1,4 +1,4 @@
-const routes = {
+export const routes = {
 	adList: {
 		path: "/list",
 	},
@@ -9,5 +9,3 @@ const routes = {
 		path: "/item/:id",
 	},
 };
-
-export default routes;

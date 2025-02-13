@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AdList from "../pages/adList/ui/adList/adList";
-import routes from "../shared/router/routes";
+import { routes } from "../shared/router";
 
 const AppRouter = () => {
 	return (

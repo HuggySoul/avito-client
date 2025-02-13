@@ -1,0 +1,14 @@
+.primaryBtn {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	border: var(--border-col);
+	padding: 8px;
+	border-radius: 10px;
+	background-color: var(--primary-col);
+	color: white;
+}
+
+.primaryBtn:hover {
+	background-color: var(--primary-hover-col);
+}
