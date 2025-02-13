@@ -49,3 +49,13 @@
 	gap: 20px;
 	justify-content: space-between;
 }
+
+.categorySelector {
+	background-color: transparent;
+	font-size: inherit;
+	outline: none;
+	border-radius: 5px;
+	border: 1px solid var(--border-col);
+	padding: 5px;
+	cursor: pointer;
+}

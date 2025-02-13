@@ -15,7 +15,7 @@ const FilterMenu = () => {
 				<label className={st.labelTxt} htmlFor="category">
 					Категория
 				</label>
-				<select id="category">
+				<select className={st.categorySelector} id="category">
 					{AD_CATEGORIES.map((ad, i) => (
 						<option value={ad} key={i}>
 							{ad}
