@@ -6,6 +6,7 @@ import FilterBtn from "../filterBtn/filterBtn";
 import PrimaryBtn from "../../../../shared/ui/primaryBtn/primaryBtn";
 import { useState } from "react";
 import SelectPageBtns from "../selectPageBtns/selectPageBtns";
+import loadingIcon from "../../../../shared/assets/icons/loading.svg";
 
 const ITEMS_PER_PAGE = 5;
 
@@ -16,12 +17,6 @@ const AdList = () => {
 		limit: ITEMS_PER_PAGE,
 	});
 
-	if (isLoading) return <p>Загрузка...</p>;
-	if (error) {
-		console.log(error);
-		return <></>;
-	}
-
 	return (
 		<main className={st.main}>
 			<header className={st.adListHeader}>
@@ -29,11 +24,18 @@ const AdList = () => {
 				<FilterBtn />
 			</header>
 			<PrimaryBtn>Разместить объявление</PrimaryBtn>
-			<div className={st.adList}>
-				{data?.items?.map((ad) => (
-					<AdPreview ad={ad} key={ad.id} />
-				))}
-			</div>
+
+			{!isLoading && !error ? (
+				<div className={st.adList}>
+					{data?.items?.map((ad) => (
+						<AdPreview ad={ad} key={ad.id} />
+					))}
+				</div>
+			) : (
+				(!error && <img className={st.loading} src={loadingIcon} alt="Загрузка" />) || (
+					<p className={st.error}>Ошибка загрузки объявлений :\</p>
+				)
+			)}
 
 			<SelectPageBtns
 				currentPage={currentPage}

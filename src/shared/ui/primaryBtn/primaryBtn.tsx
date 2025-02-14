@@ -3,14 +3,14 @@ import st from "./primaryBtn.module.css";
 const PrimaryBtn = ({
 	children,
 	action,
-	isActive,
+	disabled,
 }: {
 	children: React.ReactNode;
 	action?: React.MouseEventHandler<HTMLButtonElement>;
-	isActive?: boolean;
+	disabled?: boolean;
 }) => {
 	const setIsDisabled = () => {
-		return typeof isActive !== "undefined" ? isActive : false;
+		return typeof disabled !== "undefined" ? disabled : false;
 	};
 	return (
 		<button disabled={setIsDisabled()} onClick={action} className={st.primaryBtn}>

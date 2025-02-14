@@ -19,13 +19,13 @@ interface IProps {
 const SelectPageBtns = ({ currentPage, increment, decrement, data }: IProps) => {
 	return (
 		<div className={st.selectPageBtns}>
-			<PrimaryBtn isActive={currentPage === 1} action={decrement}>
+			<PrimaryBtn disabled={currentPage === 1} action={decrement}>
 				← Назад
 			</PrimaryBtn>
 			<span className={st.currentPage}>
-				Страница {currentPage} / {data?.totalPages}
+				Страница {currentPage} / {data ? data.totalPages : "?"}
 			</span>
-			<PrimaryBtn isActive={currentPage === data?.totalPages} action={increment}>
+			<PrimaryBtn disabled={!data || currentPage === data?.totalPages} action={increment}>
 				Вперёд →
 			</PrimaryBtn>
 		</div>
