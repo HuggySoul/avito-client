@@ -15,7 +15,7 @@ interface IProps {
 const Search = ({ setResult, query, setQuery, currentPage, limit }: IProps) => {
 	const [debouncedQuery, setDebouncedQuery] = useState(query);
 	const { data, isFetching } = useSearchAdsQuery(
-		{ adName: query, page: currentPage, limit: limit },
+		{ adName: debouncedQuery, page: currentPage, limit: limit },
 		{ skip: debouncedQuery.length < 3 }
 	);
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +31,7 @@ const Search = ({ setResult, query, setQuery, currentPage, limit }: IProps) => {
 	useEffect(() => {
 		const handler = setTimeout(() => {
 			setDebouncedQuery(query);
-		}, 300);
+		}, 500);
 
 		return () => {
 			clearTimeout(handler);
