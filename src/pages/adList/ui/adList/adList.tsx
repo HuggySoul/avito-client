@@ -8,6 +8,7 @@ import PrimaryBtn from "../../../../shared/ui/primaryBtn/primaryBtn";
 import SelectPageBtns from "../selectPageBtns/selectPageBtns";
 import loadingIcon from "../../../../shared/assets/icons/loading.svg";
 import { AdsResponse } from "../../../../shared/types";
+import { Filter } from "../../../../shared/types";
 
 const ITEMS_PER_PAGE = 5;
 
@@ -15,7 +16,7 @@ const AdList = () => {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [searchResults, setSearchResults] = useState<AdsResponse | undefined>(undefined);
 	const [searchQuery, setSearchQuery] = useState("");
-
+	const [activeFilter, setActiveFilter] = useState<Filter | null>(null);
 	const { data, error, isLoading } = useGetAdsQuery({
 		page: currentPage,
 		limit: ITEMS_PER_PAGE,
@@ -24,6 +25,10 @@ const AdList = () => {
 	// Если строка поиска короткая, показываем все объявления, иначе — результаты поиска
 	const adsToDisplay = searchQuery.length < 3 ? data?.items : searchResults;
 
+	// Фильтруем объявления на странице
+	const filteredAds = adsToDisplay?.filter((ad) =>
+		activeFilter ? ad.type === activeFilter.adType : true
+	);
 	return (
 		<main className={st.main}>
 			<header className={st.adListHeader}>
@@ -34,7 +39,7 @@ const AdList = () => {
 					currentPage={currentPage}
 					limit={ITEMS_PER_PAGE}
 				/>
-				<FilterBtn />
+				<FilterBtn setActiveFilter={setActiveFilter} />
 			</header>
 
 			<PrimaryBtn>Разместить объявление</PrimaryBtn>
@@ -49,7 +54,7 @@ const AdList = () => {
 			{!isLoading && !error && (
 				<div className={st.adList}>
 					{adsToDisplay && adsToDisplay.length > 0 ? (
-						adsToDisplay.map((ad) => <AdPreview ad={ad} key={ad.id} />)
+						filteredAds?.map((ad) => <AdPreview ad={ad} key={ad.id} />)
 					) : (
 						<p className={st.error}>Объявлений не найдено</p>
 					)}
