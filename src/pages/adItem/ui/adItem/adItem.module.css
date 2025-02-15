@@ -1,0 +1,42 @@
+.adPage {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	padding: 20px;
+	gap: 10px;
+}
+
+.adName {
+	font-size: 30px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.adInfo {
+	display: flex;
+	gap: 30px;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.adImg {
+	border: 1px solid var(--border-col);
+	width: 500px;
+	border-radius: 20px;
+	padding: 10px;
+}
+
+.regularTxt {
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.infoTitleTxt {
+	font-size: 23px;
+	font-weight: 700;
+	margin-bottom: 20px;
+}
+
+.btnTxt {
+	font-size: 20px;
+}
