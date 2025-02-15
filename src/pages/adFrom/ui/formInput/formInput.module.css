@@ -1,0 +1,18 @@
+.inputBlock {
+	width: 100%;
+}
+
+.adInput {
+	width: 100%;
+	font-size: 20px;
+	border-radius: 10px;
+	border: 1px solid var(--border-col);
+	padding: 5px;
+	font-family: "Nunito sans";
+}
+
+.errorTxt {
+	margin-top: 10px;
+	color: red;
+	font-size: 12px;
+}

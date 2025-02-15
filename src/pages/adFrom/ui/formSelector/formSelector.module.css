@@ -1,0 +1,22 @@
+.errorTxt {
+	margin-top: 10px;
+	color: red;
+	font-size: 12px;
+}
+
+.inputBlock {
+	width: 100%;
+}
+
+.formSelector {
+	width: 100%;
+	font-family: "Nunito sans";
+	font-size: 20px;
+	background-color: transparent;
+	font-size: inherit;
+	outline: none;
+	border-radius: 10px;
+	border: 1px solid var(--border-col);
+	padding: 5px;
+	cursor: pointer;
+}

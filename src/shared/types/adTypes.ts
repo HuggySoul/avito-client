@@ -2,7 +2,7 @@ import { AD_CATEGORIES } from "../model/";
 
 export type AdCategory = (typeof AD_CATEGORIES)[number];
 // Базовый интерфейс объявления
-interface BaseAd {
+export interface BaseAd {
 	id: number; // Уникальный идентификатор
 	name: string; // Название
 	description: string; // Описание

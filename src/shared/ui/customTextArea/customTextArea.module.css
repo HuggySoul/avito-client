@@ -1,0 +1,10 @@
+.titleInput {
+	width: 100%;
+	font-family: "Nunito Sans";
+	outline: none;
+	border: none;
+	text-align: center;
+	height: fit-content;
+	resize: none;
+	overflow: hidden;
+}

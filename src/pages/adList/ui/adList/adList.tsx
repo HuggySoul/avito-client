@@ -9,6 +9,7 @@ import SelectPageBtns from "../selectPageBtns/selectPageBtns";
 import loadingIcon from "../../../../shared/assets/icons/loading.svg";
 import { AdsResponse } from "../../../../shared/types";
 import { Filter } from "../../../../shared/types";
+import { useNavigate } from "react-router-dom";
 
 const ITEMS_PER_PAGE = 5;
 
@@ -21,6 +22,11 @@ const AdList = () => {
 		page: currentPage,
 		limit: ITEMS_PER_PAGE,
 	});
+	const navigate = useNavigate();
+
+	const handleCreateAd = () => {
+		navigate("/form");
+	};
 
 	// Если строка поиска короткая, показываем все объявления, иначе — результаты поиска
 	const adsToDisplay = searchQuery.length < 3 ? data?.items : searchResults;
@@ -42,7 +48,7 @@ const AdList = () => {
 				<FilterBtn setActiveFilter={setActiveFilter} />
 			</header>
 
-			<PrimaryBtn>Разместить объявление</PrimaryBtn>
+			<PrimaryBtn action={handleCreateAd}>Разместить объявление</PrimaryBtn>
 
 			{/* Состояние загрузки */}
 			{isLoading && <img className={st.loading} src={loadingIcon} alt="Загрузка" />}
