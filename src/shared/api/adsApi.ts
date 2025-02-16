@@ -78,7 +78,7 @@ export const adsApi = createApi({
 					params.append("adTypeFilter", adTypeFilter);
 				}
 
-				return `/items/search?${params.toString()}`;
+				return `/items/earch?${params.toString()}`;
 			},
 		}),
 	}),

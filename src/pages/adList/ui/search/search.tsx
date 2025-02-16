@@ -11,11 +11,20 @@ interface IProps {
 	currentPage: number;
 	limit: number;
 	filter: Filter | null;
+	setTotal: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Search = ({ setResult, query, setQuery, currentPage, limit, filter }: IProps) => {
+const Search = ({
+	setResult,
+	query,
+	setQuery,
+	currentPage,
+	limit,
+	filter,
+	setTotal,
+}: IProps) => {
 	const [debouncedQuery, setDebouncedQuery] = useState(query);
-	const { data, isFetching } = useSearchAdsQuery(
+	const { data, isFetching, error } = useSearchAdsQuery(
 		{
 			adName: debouncedQuery,
 			page: currentPage,
@@ -31,7 +40,8 @@ const Search = ({ setResult, query, setQuery, currentPage, limit, filter }: IPro
 	// Обновляем список объявлений при изменении результатов поиска
 	useEffect(() => {
 		setResult(data?.items);
-	}, [data, setResult]);
+		setTotal(data?.total || 0);
+	}, [data, setResult, setTotal, error]);
 
 	// Дебаунсинг запроса
 	useEffect(() => {
@@ -55,6 +65,7 @@ const Search = ({ setResult, query, setQuery, currentPage, limit, filter }: IPro
 			{isFetching && (
 				<img className={st.loadingIcon} src={loadingIcon} alt="Иконка загрузки" />
 			)}
+			{error && <p className={st.error}>Произошла ошибка поиска</p>}
 		</div>
 	);
 };

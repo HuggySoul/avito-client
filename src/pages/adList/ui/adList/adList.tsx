@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdPreview from "../adPreview/adPreview";
 import { useGetAdsQuery } from "../../../../shared/api/adsApi";
 import st from "./adList.module.css";
@@ -18,19 +18,28 @@ const AdList = () => {
 	const [searchResults, setSearchResults] = useState<AdsResponse | undefined>(undefined);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [activeFilter, setActiveFilter] = useState<Filter | null>(null);
+	const [totalAdsQuantity, setTotalAdsQuantity] = useState(0);
+
 	const { data, error, isLoading } = useGetAdsQuery({
 		page: currentPage,
 		limit: ITEMS_PER_PAGE,
 		adTypeFilter: activeFilter?.adType,
 	});
-	const navigate = useNavigate();
 
+	useEffect(() => {
+		setTotalAdsQuantity(data?.total || 0);
+	}, [data?.total]);
+
+	const navigate = useNavigate();
 	const handleCreateAd = () => {
 		navigate("/form");
 	};
 
+	const isSearchViewActive = () => {
+		return searchQuery.length > 2;
+	};
 	// Если строка поиска короткая, показываем все объявления, иначе — результаты поиска
-	const adsToDisplay = searchQuery.length < 3 ? data?.items : searchResults;
+	const adsToDisplay = !isSearchViewActive() ? data?.items : searchResults;
 
 	return (
 		<main className={st.main}>
@@ -42,6 +51,7 @@ const AdList = () => {
 					currentPage={currentPage}
 					filter={activeFilter}
 					limit={ITEMS_PER_PAGE}
+					setTotal={setTotalAdsQuantity}
 				/>
 				<FilterBtn setActiveFilter={setActiveFilter} />
 			</header>
@@ -65,12 +75,15 @@ const AdList = () => {
 				</div>
 			)}
 
-			<SelectPageBtns
-				currentPage={currentPage}
-				increment={() => setCurrentPage((prev) => prev + 1)}
-				decrement={() => setCurrentPage((prev) => prev - 1)}
-				data={data}
-			/>
+			{totalAdsQuantity > 5 && (
+				<SelectPageBtns
+					currentPage={currentPage}
+					limit={ITEMS_PER_PAGE}
+					increment={() => setCurrentPage((prev) => prev + 1)}
+					decrement={() => setCurrentPage((prev) => prev - 1)}
+					total={totalAdsQuantity}
+				/>
+			)}
 		</main>
 	);
 };
