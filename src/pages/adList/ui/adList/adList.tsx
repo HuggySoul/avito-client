@@ -10,6 +10,7 @@ import loadingIcon from "../../../../shared/assets/icons/loading.svg";
 import { AdsResponse } from "../../../../shared/types";
 import { Filter } from "../../../../shared/types";
 import { useNavigate } from "react-router-dom";
+import ActiveFilter from "../activeFilter/activeFilter";
 
 const ITEMS_PER_PAGE = 5;
 
@@ -30,16 +31,18 @@ const AdList = () => {
 		setTotalAdsQuantity(data?.total || 0);
 	}, [data?.total]);
 
+	useEffect(() => {
+		// чтобы избежать ошибок при поиске и фильтрации не на первой странице
+		setCurrentPage(1);
+	}, [totalAdsQuantity]);
+
 	const navigate = useNavigate();
 	const handleCreateAd = () => {
 		navigate("/form");
 	};
 
-	const isSearchViewActive = () => {
-		return searchQuery.length > 2;
-	};
 	// Если строка поиска короткая, показываем все объявления, иначе — результаты поиска
-	const adsToDisplay = !isSearchViewActive() ? data?.items : searchResults;
+	const adsToDisplay = searchQuery.length < 3 ? data?.items : searchResults;
 
 	return (
 		<main className={st.main}>
@@ -55,8 +58,12 @@ const AdList = () => {
 				/>
 				<FilterBtn setActiveFilter={setActiveFilter} />
 			</header>
-
-			<PrimaryBtn action={handleCreateAd}>Разместить объявление</PrimaryBtn>
+			<div className={st.topBtns}>
+				<PrimaryBtn action={handleCreateAd}>Разместить объявление</PrimaryBtn>
+				{activeFilter && (
+					<ActiveFilter activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
+				)}
+			</div>
 
 			{/* Состояние загрузки */}
 			{isLoading && <img className={st.loading} src={loadingIcon} alt="Загрузка" />}
