@@ -11,7 +11,7 @@ const AppRouter = () => {
 				<Route path={routes.adItem.path} element={<AdItem />} />
 				{/* Два маршрута для формы: один без id, другой с id для редактирования*/}
 				<Route path={routes.adForm.path} element={<AdForm />} />
-				<Route path={`${routes.adForm.path}/:id`} element={<AdForm />} />
+				<Route path={`${routes.adForm.pathWithId}`} element={<AdForm />} />
 			</Routes>
 		</Router>
 	);

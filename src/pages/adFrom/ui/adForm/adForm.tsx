@@ -205,7 +205,7 @@ const AdForm = () => {
 								<span className={st.btnTxt}>Назад</span>
 							</PrimaryBtn>
 							<PrimaryBtn action={handleSubmit(onSubmit)}>
-								<span className={st.btnTxt}>Отправить</span>
+								<span className={st.btnTxt}> {isEditMode ? "Сохранить" : "Создать"}</span>
 							</PrimaryBtn>
 						</div>
 					</>
