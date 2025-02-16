@@ -22,6 +22,10 @@ const AdPreview = ({
 		navigate(`/item/${ad.id}`);
 	};
 
+	const handleEdit = () => {
+		navigate(`/form/${ad.id}`);
+	};
+
 	return (
 		<article className={st.adCard}>
 			<img className={st.adImg} src={img} alt="Изображение отсутствует" />
@@ -34,7 +38,7 @@ const AdPreview = ({
 					<p className={st.smallTxt}>{ad.type}</p>
 				</div>
 				<div className={st.bottomBlock}>
-					<PrimaryBtn>Редактировать</PrimaryBtn>
+					<PrimaryBtn action={handleEdit}>Редактировать</PrimaryBtn>
 					<PrimaryBtn action={handleOpen}>Открыть</PrimaryBtn>
 				</div>
 			</div>

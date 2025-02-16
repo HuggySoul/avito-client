@@ -4,6 +4,7 @@ export const routes = {
 	},
 	adForm: {
 		path: "/form",
+		withId: `/form/:id`,
 	},
 	adItem: {
 		path: "/item/:id",

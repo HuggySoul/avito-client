@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import st from "./adForm.module.css";
 import { BaseAd } from "../../../../shared/types";
@@ -10,25 +10,66 @@ import { RealEstateForm } from "../realEstateForm";
 import { AutoForm } from "../autoForm";
 import { ServiceForm } from "../serviceForm";
 import { Step2Form } from "../../../../shared/types";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+	useGetAdByIdQuery,
+	useCreateAdMutation,
+	useUpdateAdMutation,
+} from "../../../../shared/api/adsApi";
 
 const AdForm = () => {
 	const [step, setStep] = useState(1);
-	const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+	const { id } = useParams();
+	const [createAd] = useCreateAdMutation();
+	const [updateAd] = useUpdateAdMutation();
+
+	const isEditMode = Boolean(id);
+	const { data: adData } = useGetAdByIdQuery(Number(id), {
+		skip: !isEditMode,
+	});
+	const [photoPreview, setPhotoPreview] = useState<string | undefined | null>(null);
 	const {
 		register,
 		handleSubmit,
 		watch,
 		formState: { errors },
 		trigger,
+		reset,
+		setValue,
 	} = useForm<Step2Form & BaseAd>({
 		mode: "onChange",
 	});
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (adData) {
+			reset(adData);
+			setPhotoPreview(adData.photo);
+		}
+	}, [adData, reset]);
 
 	const selectedCategory = watch("type");
 
+	const redirect = () => {
+		navigate("/list");
+		navigate(0); // обновление страницы
+	};
+
 	const onSubmit = async (data: BaseAd & Step2Form) => {
 		const isValid = await trigger();
-		if (isValid) console.log("Form submitted:", data);
+		if (!isValid) return;
+
+		try {
+			if (isEditMode) {
+				await updateAd({ id: Number(id), data }).unwrap();
+				redirect();
+			} else {
+				await createAd(data).unwrap();
+				redirect();
+			}
+		} catch (error) {
+			console.error("Ошибка при отправке данных:", error);
+		}
 	};
 
 	const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +77,10 @@ const AdForm = () => {
 		if (file) {
 			const reader = new FileReader();
 			reader.onloadend = () => {
-				setPhotoPreview(reader.result as string);
+				const base64String = reader.result as string;
+				setPhotoPreview(base64String);
+				// Обновляем поле photo в useForm
+				setValue("photo", base64String);
 			};
 			reader.readAsDataURL(file);
 		}
@@ -49,10 +93,18 @@ const AdForm = () => {
 		}
 	};
 
+	const handleRemovePhoto = () => {
+		setPhotoPreview(null);
+		// Удаляем фото из формы
+		setValue("photo", undefined);
+	};
+
 	return (
 		<main className={st.formPage}>
-			<form className={st.adForm} onSubmit={handleSubmit(onSubmit)}>
-				<h1>Создайте объявление:</h1>
+			<form className={st.adForm}>
+				<h1>{!isEditMode ? "Создайте " : "Отредактируйте "}объявление:</h1>
+
+				{/* Первый шаг заполнения формы */}
 				{step === 1 && (
 					<>
 						<FormInput
@@ -80,12 +132,14 @@ const AdForm = () => {
 							placeholder="Локация*"
 							required={"Поле обязательно для заполнения"}
 						/>
+
+						{/* Логика отображения фото */}
 						{photoPreview ? (
 							<div className={st.photoPreviewWrapper}>
 								<div className={st.photoPreviewBlock}>
 									<img src={photoPreview} alt="Preview" className={st.photoPreview} />
 								</div>
-								<PrimaryBtn action={() => setPhotoPreview(null)}>
+								<PrimaryBtn action={handleRemovePhoto}>
 									<span className={st.btnTxt}>Удалить фото</span>
 								</PrimaryBtn>
 							</div>
@@ -104,6 +158,7 @@ const AdForm = () => {
 								/>
 							</>
 						)}
+
 						<FormSelector
 							register={register}
 							errorMessage={errors.type?.message}
@@ -128,6 +183,7 @@ const AdForm = () => {
 					</>
 				)}
 
+				{/* Второй шаг заполнения формы */}
 				{step === 2 && (
 					<>
 						{selectedCategory === "Недвижимость" && (
@@ -145,7 +201,7 @@ const AdForm = () => {
 							<PrimaryBtn action={() => setStep(1)}>
 								<span className={st.btnTxt}>Назад</span>
 							</PrimaryBtn>
-							<PrimaryBtn>
+							<PrimaryBtn action={handleSubmit(onSubmit)}>
 								<span className={st.btnTxt}>Отправить</span>
 							</PrimaryBtn>
 						</div>

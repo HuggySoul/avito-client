@@ -4,12 +4,21 @@ import { useGetAdByIdQuery } from "../../../../shared/api/adsApi";
 import imageTemplate from "../../../../shared/assets/icons/imagesTemplate.svg";
 import { isRealEstateAd, isAutoAd, isServiceAd } from "../../../../shared/utils";
 import PrimaryBtn from "../../../../shared/ui/primaryBtn/primaryBtn";
+import { useNavigate } from "react-router-dom";
 
 const AdItem = () => {
 	const { id } = useParams();
 	const { data, error } = useGetAdByIdQuery(Number(id));
-
+	const navigate = useNavigate();
 	if (error) return <h1 className={st.error}>Ошибка загрузки объявления :\</h1>;
+
+	const handleEdit = () => {
+		if (!data) {
+			console.log(error);
+			return;
+		}
+		navigate(`/form/${data.id}`);
+	};
 
 	return (
 		<main className={st.adPage}>
@@ -78,7 +87,7 @@ const AdItem = () => {
 							)}
 						</>
 					)}
-					<PrimaryBtn>
+					<PrimaryBtn action={handleEdit}>
 						<span className={st.btnTxt}>Редактировать</span>
 					</PrimaryBtn>
 				</div>

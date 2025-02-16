@@ -9,7 +9,9 @@ const AppRouter = () => {
 			<Routes>
 				<Route path={routes.adList.path} element={<AdList />} />
 				<Route path={routes.adItem.path} element={<AdItem />} />
+				{/* Два маршрута для формы: один без id, другой с id для редактирования*/}
 				<Route path={routes.adForm.path} element={<AdForm />} />
+				<Route path={`${routes.adForm.path}/:id`} element={<AdForm />} />
 			</Routes>
 		</Router>
 	);

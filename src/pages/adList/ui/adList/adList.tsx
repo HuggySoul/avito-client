@@ -25,7 +25,7 @@ const AdList = () => {
 	const navigate = useNavigate();
 
 	const handleCreateAd = () => {
-		navigate("/form");
+		navigate("/form/");
 	};
 
 	// Если строка поиска короткая, показываем все объявления, иначе — результаты поиска

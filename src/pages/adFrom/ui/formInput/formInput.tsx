@@ -10,8 +10,6 @@ export const FormInput = ({
 	inputName,
 	required,
 }: IProps) => {
-	console.log(placeholder, required);
-	console.log(placeholder, errorMessage);
 	return (
 		<div className={st.inputBlock}>
 			<div className={st.inputBlock}>
