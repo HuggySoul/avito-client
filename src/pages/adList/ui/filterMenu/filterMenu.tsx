@@ -9,6 +9,8 @@ interface IProps {
 	toggleIsVisible: () => void;
 	setActiveFilter: React.Dispatch<React.SetStateAction<Filter | null>>;
 }
+
+// Меню для установки фильтров
 const FilterMenu = ({ toggleIsVisible, setActiveFilter }: IProps) => {
 	const [category, setCategory] = useState<string>(AD_CATEGORIES[0]);
 

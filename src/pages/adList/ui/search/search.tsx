@@ -14,6 +14,7 @@ interface IProps {
 	setTotal: React.Dispatch<React.SetStateAction<number>>;
 }
 
+//Компонент поисковой строки
 const Search = ({
 	setResult,
 	query,
@@ -40,6 +41,7 @@ const Search = ({
 	// Обновляем список объявлений при изменении результатов поиска
 	useEffect(() => {
 		setResult(data?.items);
+		// Устанавливаем общее количество объявлений
 		setTotal(data?.total || 0);
 	}, [data, setResult, setTotal, error]);
 

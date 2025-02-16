@@ -1,5 +1,6 @@
 import st from "./primaryBtn.module.css";
 
+// Компонент стандартной кнопки
 const PrimaryBtn = ({
 	children,
 	action,

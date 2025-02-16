@@ -3,6 +3,7 @@ import { FormSelector } from "../formSelector";
 import { FormInput } from "../formInput";
 import { IProps } from "./types";
 
+//Форма заполнения данных недвижимости
 export const RealEstateForm = ({ register, errors }: IProps) => {
 	return (
 		<>

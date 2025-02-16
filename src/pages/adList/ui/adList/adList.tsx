@@ -14,6 +14,7 @@ import ActiveFilter from "../activeFilter/activeFilter";
 
 const ITEMS_PER_PAGE = 5;
 
+// Общий список объявлений
 const AdList = () => {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [searchResults, setSearchResults] = useState<AdsResponse | undefined>(undefined);
@@ -27,6 +28,7 @@ const AdList = () => {
 		adTypeFilter: activeFilter?.adType,
 	});
 
+	// Устанавливаем общее количество объявлений
 	useEffect(() => {
 		setTotalAdsQuantity(data?.total || 0);
 	}, [data?.total]);

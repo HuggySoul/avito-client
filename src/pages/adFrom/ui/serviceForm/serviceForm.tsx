@@ -3,6 +3,7 @@ import { SERVICE_TYPES } from "../../../../shared/model";
 import { FormSelector } from "../formSelector";
 import { FormInput } from "../formInput";
 
+// Форма заполнения данных об услуге
 export const ServiceForm = ({ register, errors }: IProps) => {
 	return (
 		<>

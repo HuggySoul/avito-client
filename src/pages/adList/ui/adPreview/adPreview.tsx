@@ -11,6 +11,7 @@ import {
 	ServiceDetails,
 } from "../../../../shared/types/adTypes";
 
+// Компонент карточки объявления
 const AdPreview = ({
 	ad,
 }: {

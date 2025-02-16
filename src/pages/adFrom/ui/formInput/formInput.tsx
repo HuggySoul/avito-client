@@ -1,6 +1,7 @@
 import st from "./formInput.module.css";
 import { IProps } from "./types";
 
+// стандартный инпут формы
 export const FormInput = ({
 	register,
 	errorMessage,

@@ -18,16 +18,19 @@ import {
 } from "../../../../shared/api/adsApi";
 
 const AdForm = () => {
-	const [step, setStep] = useState(1);
-	const { id } = useParams();
-	const [createAd] = useCreateAdMutation();
-	const [updateAd] = useUpdateAdMutation();
+	const [step, setStep] = useState(1); // шаг формы
+	const { id } = useParams(); // id редактируемой формы
+	const [createAd] = useCreateAdMutation(); // api для создания объявления
+	const [updateAd] = useUpdateAdMutation(); //api для редактирования объявления
 
+	// Получение данных объявления при редактировании
 	const isEditMode = Boolean(id);
 	const { data: adData } = useGetAdByIdQuery(Number(id), {
 		skip: !isEditMode,
 	});
+	//state для удобства работы с фото
 	const [photoPreview, setPhotoPreview] = useState<string | undefined | null>(null);
+
 	const {
 		register,
 		handleSubmit,
@@ -44,6 +47,7 @@ const AdForm = () => {
 	});
 	const navigate = useNavigate();
 
+	//Заполняем форму при получении данных
 	useEffect(() => {
 		if (adData) {
 			reset(adData);
@@ -51,6 +55,7 @@ const AdForm = () => {
 		}
 	}, [adData, reset]);
 
+	//для отслеживания типа опциональной формы
 	const selectedCategory = watch("type");
 
 	const redirect = () => {
@@ -89,6 +94,7 @@ const AdForm = () => {
 		}
 	};
 
+	// Обработчик перехода к следующему шагу формы
 	const handleNextStep = async () => {
 		const isValid = await trigger();
 		if (isValid) {
@@ -106,7 +112,6 @@ const AdForm = () => {
 		<main className={st.formPage}>
 			<form className={st.adForm}>
 				<h1>{!isEditMode ? "Создайте " : "Отредактируйте "}объявление:</h1>
-
 				{/* Первый шаг заполнения формы */}
 				{step === 1 && (
 					<>

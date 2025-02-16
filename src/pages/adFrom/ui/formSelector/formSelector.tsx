@@ -1,5 +1,7 @@
 import st from "./formSelector.module.css";
 import { Iprops } from "./types";
+
+//Стандартный селектор формы
 export const FormSelector = ({
 	register,
 	errorMessage,

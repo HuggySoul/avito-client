@@ -1,6 +1,6 @@
 import { AdPayload } from "../types";
 import { Ad, AutoDetails, RealEstateDetails, ServiceDetails } from "../types";
-
+// Проверка типов объявлений
 export const isRealEstateAd = (ad: AdPayload | undefined): ad is Ad<RealEstateDetails> =>
 	ad?.type === "Недвижимость";
 

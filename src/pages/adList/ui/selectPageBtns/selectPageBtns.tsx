@@ -9,6 +9,7 @@ interface IProps {
 	total: number;
 }
 
+//кнопки перехода на новую страницу с объявлениями
 const SelectPageBtns = ({ currentPage, increment, decrement, limit, total }: IProps) => {
 	const totalPages = Math.ceil(total / limit);
 	return (

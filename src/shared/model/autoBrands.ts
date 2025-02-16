@@ -1,3 +1,4 @@
+// Доступные бренды автомобилей
 export const AUTO_BRANDS = [
 	"audi",
 	"bmw",

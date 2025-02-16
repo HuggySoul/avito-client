@@ -6,6 +6,8 @@ interface IProps {
 	setActiveFilter: React.Dispatch<React.SetStateAction<Filter | null>>;
 	activeFilter: Filter;
 }
+
+// Отображение активного фильтра
 const ActiveFilter = ({ activeFilter, setActiveFilter }: IProps) => {
 	return (
 		<div className={st.activeFilter}>

@@ -8,6 +8,8 @@ import { Filter } from "../../../../shared/types";
 interface IProps {
 	setActiveFilter: React.Dispatch<React.SetStateAction<Filter | null>>;
 }
+
+//Кнопка фильтра на странице
 const FilterBtn = ({ setActiveFilter }: IProps) => {
 	const [isActive, setIsActive] = useState(false);
 

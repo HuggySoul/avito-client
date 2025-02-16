@@ -6,6 +6,7 @@ import { isRealEstateAd, isAutoAd, isServiceAd } from "../../../../shared/utils"
 import PrimaryBtn from "../../../../shared/ui/primaryBtn/primaryBtn";
 import { useNavigate } from "react-router-dom";
 
+// Отображения страницы объявления
 const AdItem = () => {
 	const { id } = useParams();
 	const { data, error } = useGetAdByIdQuery(Number(id));

@@ -3,6 +3,7 @@ import { FormSelector } from "../formSelector";
 import { FormInput } from "../formInput";
 import { AUTO_BRANDS } from "../../../../shared/model";
 
+// Форма заполнения данных автомобиля
 export const AutoForm = ({ register, errors }: IProps) => {
 	return (
 		<>
