@@ -17,18 +17,22 @@
 	gap: 30px;
 	justify-content: center;
 	flex-wrap: wrap;
+	width: 100%;
 }
 
 .adImg {
 	border: 1px solid var(--border-col);
-	width: 500px;
+	max-width: 400px;
+	max-height: 500px;
 	border-radius: 20px;
 	padding: 10px;
+	object-fit: contain;
 }
 
 .regularTxt {
 	font-size: 20px;
 	font-weight: 600;
+	max-width: 600px;
 }
 
 .infoTitleTxt {

@@ -28,7 +28,12 @@ const AdPreview = ({
 
 	return (
 		<article className={st.adCard}>
-			<img className={st.adImg} src={img} alt="Изображение отсутствует" />
+			{ad.photo ? (
+				<img className={st.adImg} src={ad.photo} alt="Изображение объявления" />
+			) : (
+				<img className={st.adImg} src={img} alt="Изображение отсутствует" />
+			)}
+
 			<div className={st.adInfo}>
 				<NavLink to={`/item/${ad.id}`}>
 					<p className={st.boldTxt}>{ad.name}</p>

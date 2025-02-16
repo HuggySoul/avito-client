@@ -38,6 +38,9 @@ const AdForm = () => {
 		setValue,
 	} = useForm<Step2Form & BaseAd>({
 		mode: "onChange",
+		defaultValues: {
+			photo: !isEditMode ? "" : adData?.photo,
+		},
 	});
 	const navigate = useNavigate();
 
@@ -94,9 +97,9 @@ const AdForm = () => {
 	};
 
 	const handleRemovePhoto = () => {
-		setPhotoPreview(null);
 		// Удаляем фото из формы
-		setValue("photo", undefined);
+		setValue("photo", "");
+		setPhotoPreview(null);
 	};
 
 	return (

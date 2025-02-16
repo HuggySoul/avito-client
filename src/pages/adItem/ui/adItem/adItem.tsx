@@ -24,7 +24,11 @@ const AdItem = () => {
 		<main className={st.adPage}>
 			<h1 className={st.adName}>{data?.name}</h1>
 			<div className={st.adInfo}>
-				<img className={st.adImg} src={imageTemplate} alt="Фото отсутствует" />
+				{data?.photo ? (
+					<img className={st.adImg} src={data.photo} alt="Фото объявления" />
+				) : (
+					<img className={st.adImg} src={imageTemplate} alt="Фото отсутствует" />
+				)}
 				<div className={st.txtBlock}>
 					<p className={st.infoTitleTxt}>Подробная информация: </p>
 					<p className={st.regularTxt}>
