@@ -3,19 +3,25 @@ import { AdsResponse } from "../../../../shared/types";
 import { useSearchAdsQuery } from "../../../../shared/api/adsApi";
 import { useState, useEffect } from "react";
 import loadingIcon from "../../../../shared/assets/icons/loading.svg";
-
+import { Filter } from "../../../../shared/types";
 interface IProps {
 	setResult: React.Dispatch<React.SetStateAction<AdsResponse | undefined>>;
 	query: string;
 	setQuery: React.Dispatch<React.SetStateAction<string>>;
 	currentPage: number;
 	limit: number;
+	filter: Filter | null;
 }
 
-const Search = ({ setResult, query, setQuery, currentPage, limit }: IProps) => {
+const Search = ({ setResult, query, setQuery, currentPage, limit, filter }: IProps) => {
 	const [debouncedQuery, setDebouncedQuery] = useState(query);
 	const { data, isFetching } = useSearchAdsQuery(
-		{ adName: debouncedQuery, page: currentPage, limit: limit },
+		{
+			adName: debouncedQuery,
+			page: currentPage,
+			limit: limit,
+			adTypeFilter: filter?.adType,
+		},
 		{ skip: debouncedQuery.length < 3 }
 	);
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

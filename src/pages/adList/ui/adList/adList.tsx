@@ -21,6 +21,7 @@ const AdList = () => {
 	const { data, error, isLoading } = useGetAdsQuery({
 		page: currentPage,
 		limit: ITEMS_PER_PAGE,
+		adTypeFilter: activeFilter?.adType,
 	});
 	const navigate = useNavigate();
 
@@ -31,10 +32,6 @@ const AdList = () => {
 	// Если строка поиска короткая, показываем все объявления, иначе — результаты поиска
 	const adsToDisplay = searchQuery.length < 3 ? data?.items : searchResults;
 
-	// Фильтруем объявления на странице
-	const filteredAds = adsToDisplay?.filter((ad) =>
-		activeFilter ? ad.type === activeFilter.adType : true
-	);
 	return (
 		<main className={st.main}>
 			<header className={st.adListHeader}>
@@ -43,6 +40,7 @@ const AdList = () => {
 					setQuery={setSearchQuery}
 					setResult={setSearchResults}
 					currentPage={currentPage}
+					filter={activeFilter}
 					limit={ITEMS_PER_PAGE}
 				/>
 				<FilterBtn setActiveFilter={setActiveFilter} />
@@ -60,7 +58,7 @@ const AdList = () => {
 			{!isLoading && !error && (
 				<div className={st.adList}>
 					{adsToDisplay && adsToDisplay.length > 0 ? (
-						filteredAds?.map((ad) => <AdPreview ad={ad} key={ad.id} />)
+						adsToDisplay.map((ad) => <AdPreview ad={ad} key={ad.id} />)
 					) : (
 						<p className={st.error}>Объявлений не найдено</p>
 					)}

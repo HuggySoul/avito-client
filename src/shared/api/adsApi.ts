@@ -7,12 +7,20 @@ export const adsApi = createApi({
 	baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000" }),
 	tagTypes: ["Ads"],
 	endpoints: (builder) => ({
-		// Получение списка объявлений с пагинацией
+		// Получение списка объявлений с пагинацией и фильтрацией
 		getAds: builder.query<
 			{ items: AdsResponse; total: number; page: number; totalPages: number },
-			{ page: number; limit: number }
+			{ page: number; limit: number; adTypeFilter: string | null | undefined }
 		>({
-			query: ({ page, limit }) => `/items?page=${page}&limit=${limit}`,
+			query: ({ page, limit, adTypeFilter }) => {
+				const params = new URLSearchParams();
+				params.append("page", page.toString());
+				params.append("limit", limit.toString());
+				if (adTypeFilter) {
+					params.append("adTypeFilter", adTypeFilter);
+				}
+				return `/items?${params.toString()}`;
+			},
 			providesTags: ["Ads"],
 		}),
 
@@ -51,13 +59,27 @@ export const adsApi = createApi({
 			invalidatesTags: ["Ads"],
 		}),
 
-		// Поиск объявления по названию
+		// Поиск объявления по названию c фильтрацией
 		searchAds: builder.query<
 			{ items: AdsResponse; total: number },
-			{ adName: string; page: number; limit: number }
+			{
+				adName: string;
+				page: number;
+				limit: number;
+				adTypeFilter: string | null | undefined;
+			}
 		>({
-			query: ({ adName, page, limit }) =>
-				`/items/search?name=${adName}&page=${page}&limit=${limit}`,
+			query: ({ adName, page, limit, adTypeFilter }) => {
+				const params = new URLSearchParams();
+				params.append("name", adName);
+				params.append("page", page.toString());
+				params.append("limit", limit.toString());
+				if (adTypeFilter) {
+					params.append("adTypeFilter", adTypeFilter);
+				}
+
+				return `/items/search?${params.toString()}`;
+			},
 		}),
 	}),
 });
